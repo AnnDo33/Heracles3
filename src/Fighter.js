@@ -1,4 +1,4 @@
-const MAX_LIFE = 100
+const MAX_LIFE = 100;
 
 class Fighter {
   constructor(name, strength, dexterity, image) {
@@ -7,58 +7,32 @@ class Fighter {
     this.dexterity = dexterity;
     this.life = MAX_LIFE;
     this.image = image;
-    this.weapon = null;
-    this.shield = null;
+    this.x = 0; // Position X par défaut
+    this.y = 0; // Position Y par défaut
   }
 
-  /**
-   * Launch a strike
-   * @param Fighter defender
-   */
- fight(defender) {
-    let attackPoints = this.getRandomInt(this.getDamage());
-    let damages = Math.max(attackPoints - defender.getDefense(), 0)
+  fight(defender) {
+    const attackPoints = this.getRandomInt(this.getDamage());
+    const damages = Math.max(attackPoints - defender.getDefense(), 0);
     defender.life = Math.max(defender.life - damages, 0);
+    console.log(
+      `${this.name} attaque ${defender.name} et inflige ${damages} points de dommage.`
+    );
   }
 
-
-  /**
-   * Calculate the value of the defense
-   * @returns
-   */
-  getDamage() {
-    return this.weapon ?
-      this.strength + this.weapon.damage :
-      this.strength;
-  }
-
-
-  /**
-   * Calculate the value of the attack
-   * @returns
-   */
-  getDefense() {
-    return this.shield ?
-      this.dexterity + this.shield.protection :
-      this.dexterity;
-  }
-
-  /**
-   * Make a random number between 1 and 100
-   * @param Number max
-   * @returns Number
-   */
   getRandomInt(max) {
     return 1 + Math.floor(Math.random() * max);
   }
 
-
-  /**
-  * Check if the fighters is still alive
-  * @returns Boolean
-  */
   isAlive() {
-    return this.life > 0
+    return this.life > 0;
+  }
+
+  getDamage() {
+    return this.strength;
+  }
+
+  getDefense() {
+    return this.dexterity;
   }
 }
-
